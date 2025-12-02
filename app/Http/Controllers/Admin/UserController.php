@@ -23,9 +23,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $user = User::create($request->validated());
+        // Validamos los datos recibidos
+        $datos = $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',    // confirmed verifica que exista un campo password_confirmation con el mismo valor
+        ]);
 
-        return redirect()->route('admin.users.create')->with('success', 'Usuario creado exitosamente.');
+        $user = new User();
+        $user->name = $datos['name'];
+        $user->email = $datos['email'];
+        $user->password = bcrypt($datos['password']);
+        $user->save();
+
+        return redirect()->route('admin.users.create')->with('success', 'Usuario creado correctamente.');
     }
 }

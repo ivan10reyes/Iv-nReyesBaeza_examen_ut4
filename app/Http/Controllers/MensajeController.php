@@ -31,6 +31,7 @@ class MensajeController extends Controller
         $mensaje->name = $datos['nombre'];
         $mensaje->email = $datos['email'];
         $mensaje->message = $datos['mensaje'];
+        
         // Guardar el mensaje en la base de datos
         $mensaje->save();                     
 
