@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MensajeController;
-
+use App\Http\Controllers\StudentController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -42,3 +42,19 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+// Ruta que muestra el formulario para crear un nuevo student
+Route::get('/student', [StudentController::class, 'create'])->name('student.create');
+
+// Guardar alumno
+Route::post('/student', [StudentController::class, 'store'])->name('student.store');
+
+// Mostrar muro de alumnos
+Route::get('/muro', [StudentController::class, 'index'])
+    ->middleware('auth')    // Protege la ruta para usuarios autenticados
+    ->name('mensaje.index');
+// CRUD USERS - AHORA CON Route::resource
+Route::middleware(['auth'])
+    ->group(function () {
+  
+        Route::resource('student', StudentController::class);
+    });

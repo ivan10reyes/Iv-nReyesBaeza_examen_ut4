@@ -316,9 +316,10 @@ return [
             'text' => 'search',
         ],
         [
-           'text' => 'Dashboard',
-           'url' => 'admin/dashboard',
+           'text' => __('SixSeven'),
+           'url' => 'student.index',
            'icon' => 'fas fa-fw fa-home',
+           'can' => 'auth',
        ],
        [
            'text' => 'Crear Usuario',
